@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>👾 television store</title>
+
+  <link rel="stylesheet" href="styl.css"/>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Configuración de Tailwind CSS -->
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: '#0D3B66',
+            secondary: '#FAF0CA',
+          },
+          fontFamily: {
+            sans: ['Roboto', 'sans-serif'],
+          },
+        },
+      },
+    }
+  </script>
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body class="font-sans">
+  <!-- Encabezado -->
+  <header class="bg-white shadow">
+    <div class="container mx-auto px-6 py-4 flex items-center justify-between">
+        <button id="anchor_1" popovertarget="popover_1" class="text-2xl font-bold text-gray-800" >Open info</button>
+        <ul id="popover_1" popover>
+        <li class=""><a href="finance.html">Finance</a></li>
+        <li class=""><a href="sport.html">Sport</a></li>
+        <li class=""><a href="technology.html">Technology</a></li>
+        <li class=""><a href="worldnews.html">World News</a></li>
+        </ul>
+      <nav class="space-x-4">
+        <a href="#" class="text-gray-800 hover:text-primary">Inicio</a>
+        <button class="Cart-icon text-gray-800 hover:text-primary relative">
+            X
+          <span id="cart-counter"  class="absolute -top-2 -right-2 bg-red" >
+            0
+          </span>
+          <ul id="popover_2" popover>
+            <li><strong>mercancia en la cesta</strong> </li>
+            <li><p class="title"></p></li>
+            <li><p class="price"></p></li>
+            <li><p class="features"></p></li>
+            <li class="text-right mt-3"><button class="bg-primary text-white"></button></li>
+
+          </ul>
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Sección de Héroe -->
+  <section class="bg-secondary">
+    <div class="container mx-auto px-6 py-16 text-center">
+      <h1 class="text-4xl font-bold text-gray-800 mb-4">Bienvenido a la tienda de televisiones</h1>
+      <a href="#" class="bg-primary text-white px-6 py-3 rounded-full hover:bg-blue-800">Ver television</a>
+    </div>
+  </section>
+
+  <!-- Sección de Grid de Imágenes -->
+  <section class="container mx-auto px-6 py-16">
+    <div class="text-center mb-12">
+      <h2 class="text-3xl font-bold text-gray-800">Galería de Imágenes</h2>
+      <p class="text-gray-600 mt-4">Una muestra de nuestro trabajo.</p>
+    </div>
+    <template id="product-item">
+      <div class="max-w-sm rounded overflow-hidden shadow-lg flex-col">
+        
+        <div class="px-6 py-4 flex-col flex-grow">
+          <div class="font-bold text-xl mb-2">The Coldest Sunset</div>
+          <p class="text-gray-700 text-base description "></p>
+          <p class="text-gray-700 text-base price "></p>
+          <p class="text-gray-700 text-base rating">
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatibus quia, nulla! Maiores et perferendis eaque, exercitationem praesentium nihil.
+          </p>
+        </div>
+        <div class="px-6 pt-4 pb-2">
+          <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#photography</span>
+          <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#travel</span>
+          <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#winter</span>
+        </div>
+        <!-- Button more info -->
+        <div class="px-6 pt-4 pb-2">
+          <button anchor class="bg-primary text-white px-6 py-3 hover:bg-blue-800">Ver más</button>
+          <div target popover class="absolute bg-white border border-gray-200 rounded-lg shadow-lg p-4">
+            <p class="text-gray-800">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatibus quia, nulla! Maiores et perferendis eaque, exercitationem praesentium nihil.</p>
+          </div>
+          <button
+            class="add2cart bg-primary text-white px-6 py-3 hover:bg-blue-800">Add to Cart</button>
+        </div>
+      </div>
+    </template>
+
+    <div class="container mx-auto px-6 py-16">
+        <custom-cart>
+            <!-- Popover -->
+            <div id="cart-menu" popover anchor="cart-btn" class="absolute bg-white border shadow-md p-4 rounded top-0 right-0 z-1 w-80 sm:w-96 max-w-full overflow-x-hidden">
+              <strong class="flex items-left justify-left">Productos en el carrito:</strong>
+              <div id="cart-content">
+                <!-- Aquí se añadirán los productos clonados del template -->
+              </div>
+              <!-- Total debajo de los productos -->
+              <p id="total-price" class="text-right font-bold text-lg mt-4">Total: 0.00 €</p>
+              <!-- Mensaje si el carrito está vacío -->
+              <p id="empty-cart-message" class="text-center text-gray-500 hidden">Tu carrito está vacío.</p>
+              <!-- Botón de finalizar compra  y para añadir productos si el carrito está vacío-->
+              <div class="cart-footer mt-2 flex justify-end items-center">
+                <button id="finalize-button" class="bg-primary text-white px-3 py-2 rounded text-lg font-medium hover:bg-blue-600 transition duration-300">Finalizar compra</button>
+              </div>
+            </div>
+  
+            <!-- Template para productos -->
+            <template id="cart-template">
+              <div class="relative product-item border-b py-2 flex flex-col items-start gap-4">
+                <img class="image w-16 h-16" src="" alt="">
+                <h3 class="title font-semibold"></h3>
+              
+                <p class="features text-sm text-gray-500"></p>
+                <p class="absolute price font-bold text-[#0D3B66] flex items-center top-0 right-0 gap-1 mt-20">
+                  <span class="numeric-price"></span>
+                  <span class="euro-symbol">€</span>
+                </p>
+                <span>
+                  <div class="absolute cart-icon flex items-center gap-2 bg-secondary p-4 rounded 
+                  top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 ml-20">
+                    <button class="decrease-quantity text-white text-lg font-medium bg-primary px-2 py-1 rounded">-</button>
+                    <span class="quantity text-sm"></span>
+                    <button class="increase-quantity text-white text-lg font-medium bg-primary px-2 py-1 rounded">+</button>
+                  </div>
+                </span>
+                <button class="absolute remove-button text-sm text-red-500 flex items-right bottom-0 right-0 justify-end">Eliminar</button>
+              </div>
+            </template>
+          </custom-cart>
+          <dialog id="confirmation-dialog" class="rounded shadow-lg p-4 bg-white w-80 sm:w-96 max-w-full items-right">
+            <div class="flex justify-between items-center mb-4">
+              <strong class="text-lg">Confirmación de Compra</strong>
+              <!-- Botón para cerrar el cuadro de diálogo (x) -->
+              <button id="close-dialog" class="text-gray-500 hover:text-gray-700">&times;</button>
+            </div>
+            <p id="confirmation-message" class="text-center mb-4"></p> <!-- Aquí se mostrará el mensaje -->
+            <button id="confirm-purchase" class="bg-primary text-white px-3 py-2 rounded w-full text-lg font-medium hover:bg-blue-600 transition duration-300">Confirmar</button>
+          </dialog>
+      
+      <custom-cart/>
+    </div>
+
+    <products-items class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+      <!-- Aquí Grid items -->
+    </products-items>
+  </section>
+
+
+  <!-- Pie de Página -->
+  <footer class="bg-gray-800">
+    <div class="container mx-auto px-6 py-8 text-gray-400">
+      <div class="flex flex-col md:flex-row justify-between">
+        <p>&copy; 2024 MiEmpresa. Todos los derechos reservados.</p>
+        <div class="space-x-4">
+          <a href="#" class="hover:text-white">Privacidad</a>
+          <a href="#" class="hover:text-white">Términos</a>
+          <a href="#" class="hover:text-white">Contacto</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+  <script src="stortv.js"></script>
+</body>
+</html>
